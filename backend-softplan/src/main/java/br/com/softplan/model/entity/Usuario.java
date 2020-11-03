@@ -7,35 +7,41 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import br.com.softplan.enums.Cargos;
+import br.com.softplan.model.dto.UsuarioDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @Builder
-@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 public class Usuario {
-	
-	@Id @Column @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+	@Id
+	@Column
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column
 	private String nome;
-	
+
 	@Column
 	private String email;
-	
+
 	@Column
 	private String senha;
-	
+
 	@Column
 	private Cargos cargo;
 	
+	public Usuario(UsuarioDTO usuario) {
+		this.id = usuario.getId();
+		this.nome = usuario.getNome();
+		this.email = usuario.getNome();
+		//this.cargo = usuario.getCargo();
+	}
 
-	
 }
