@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.softplan.model.dto.TokenDTO;
-import br.com.softplan.model.form.LoginForm;
 import br.com.softplan.security.TokenService;
+import br.com.softplan.security.dto.LoginDTO;
+import br.com.softplan.security.dto.TokenDTO;
 
 @RestController
 @RequestMapping("/auth")
@@ -28,7 +28,7 @@ public class AuthController {
 	private TokenService tokenService;
 
 	@PostMapping
-	public ResponseEntity<TokenDTO> autenticar(@RequestBody @Valid LoginForm form) {
+	public ResponseEntity<TokenDTO> autenticar(@RequestBody @Valid LoginDTO form) {
 		UsernamePasswordAuthenticationToken dadosLogin = form.converter();
 
 		try {

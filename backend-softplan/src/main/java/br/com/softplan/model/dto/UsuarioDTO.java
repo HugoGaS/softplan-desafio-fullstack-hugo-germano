@@ -25,12 +25,15 @@ public class UsuarioDTO {
 	private String email;
 
 	private String cargo;
+	
+	private String senha;
 
 	public UsuarioDTO(Usuario usuario) {
 		this.id = usuario.getId();
 		this.nome = usuario.getNome();
 		this.email = usuario.getEmail();
 		this.cargo = usuario.getCargo().getDescricao();
+		this.senha = usuario.getSenha();
 	}
 
 	public static Page<UsuarioDTO> converter(Page<Usuario> usuarios) {

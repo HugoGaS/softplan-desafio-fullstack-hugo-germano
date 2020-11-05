@@ -39,15 +39,15 @@ public class UsuarioService {
 
 	public UsuarioDTO save(UsuarioDTO usuarioDto) {
 
-		Usuario Usuario = new Usuario(usuarioDto);
-		Usuario.setCargo(Cargos.getValueFromDs(usuarioDto.getCargo()));
-		Usuario.setSenha(passwordEncoder.encode(DEFAULT_PASSWORD));
+		Usuario usuario = new Usuario(usuarioDto);
+		usuario.setCargo(Cargos.getValueFromDs(usuarioDto.getCargo()));
+		usuario.setSenha(passwordEncoder.encode(DEFAULT_PASSWORD));
 
-		if (Usuario.getId() == null && usuarioRepository.findByEmail(Usuario.getEmail()) != null) {
-			throw new EmailExistenteException(Usuario.getEmail());
+		if (usuario.getId() == null && usuarioRepository.existsByEmail(usuario.getEmail())) {
+			throw new EmailExistenteException(usuario.getEmail());
 		}
 
-		Usuario savedUsuario = usuarioRepository.save(Usuario);
+		Usuario savedUsuario = usuarioRepository.save(usuario);
 
 		return new UsuarioDTO(savedUsuario);
 	}
@@ -61,7 +61,7 @@ public class UsuarioService {
 	@Transactional
 	public void delete(Long id) {
 		usuarioRepository.findById(id).map(u -> {
-			//UsuarioProcessService.deleteFromUsuarioId(u.getId());
+			// UsuarioProcessService.deleteFromUsuarioId(u.getId());
 			usuarioRepository.delete(u);
 			return u;
 		}).orElseThrow(() -> new EntityNotFoundException());

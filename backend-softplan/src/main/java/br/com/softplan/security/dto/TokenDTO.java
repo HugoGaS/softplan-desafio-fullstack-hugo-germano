@@ -1,4 +1,4 @@
-package br.com.softplan.model.dto;
+package br.com.softplan.security.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,4 +1,6 @@
-package br.com.softplan.model.form;
+package br.com.softplan.security.dto;
+
+import javax.validation.constraints.NotNull;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
@@ -12,10 +14,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginForm {
+public class LoginDTO {
 	
+	@NotNull
 	private String email;
 	
+	@NotNull
 	private String senha;
 
 
