@@ -2,7 +2,7 @@ package br.com.softplan.exception;
 
 import org.springframework.http.HttpStatus;
 
-public class LoginFailedException extends ApiException {
+public class LoginFailedException extends RegraDeNegocioException {
 	
 	private static final long serialVersionUID = 209908519421603721L;
 

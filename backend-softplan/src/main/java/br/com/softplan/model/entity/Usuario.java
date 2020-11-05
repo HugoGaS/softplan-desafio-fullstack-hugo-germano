@@ -1,10 +1,16 @@
 package br.com.softplan.model.entity;
 
-import javax.persistence.Column;
+import java.util.Collection;
+
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import br.com.softplan.enums.Cargos;
 import br.com.softplan.model.dto.UsuarioDTO;
@@ -18,30 +24,63 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Usuario {
+public class Usuario implements UserDetails {
+
+	private static final long serialVersionUID = -754930716849904623L;
 
 	@Id
-	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column
 	private String nome;
 
-	@Column
 	private String email;
 
-	@Column
 	private String senha;
 
-	@Column
+	@Enumerated(EnumType.STRING)
 	private Cargos cargo;
-	
-	public Usuario(UsuarioDTO usuario) {
-		this.id = usuario.getId();
-		this.nome = usuario.getNome();
-		this.email = usuario.getNome();
-		//this.cargo = usuario.getCargo();
+
+	public Usuario(UsuarioDTO usuarioDTO) {
+		this.id = usuarioDTO.getId();
+		this.nome = usuarioDTO.getNome();
+		this.email = usuarioDTO.getEmail();
+	}
+
+	@Override
+	public String getPassword() {
+		return this.senha;
+	}
+
+	@Override
+	public String getUsername() {
+		return this.email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

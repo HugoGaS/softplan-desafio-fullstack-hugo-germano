@@ -2,7 +2,7 @@ package br.com.softplan.exception;
 
 import org.springframework.http.HttpStatus;
 
-public class EmailExistenteException extends ApiException {
+public class EmailExistenteException extends RegraDeNegocioException {
 
 	private static final long serialVersionUID = 8636341798822189420L;
 
