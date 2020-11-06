@@ -12,7 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.softplan.enums.Perfis;
-import br.com.softplan.exception.EmailExistenteException;
 import br.com.softplan.model.dto.UsuarioDTO;
 import br.com.softplan.model.entity.Usuario;
 import br.com.softplan.repository.UsuarioRepository;
@@ -22,6 +21,9 @@ public class UsuarioService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+
+	@Autowired
+	private UsuarioProcessoService usuarioProcessoService;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -44,7 +46,7 @@ public class UsuarioService {
 		usuario.setSenha(passwordEncoder.encode(DEFAULT_PASSWORD));
 
 		if (usuario.getId() == null && usuarioRepository.existsByEmail(usuario.getEmail())) {
-		//	throw new EmailExistenteException(usuario.getEmail());
+			// throw new EmailExistenteException(usuario.getEmail());
 		}
 
 		Usuario savedUsuario = usuarioRepository.save(usuario);
@@ -52,12 +54,16 @@ public class UsuarioService {
 		return new UsuarioDTO(savedUsuario);
 	}
 
+	@Transactional
+	public void delete(Long usuarioId) {
+		usuarioProcessoService.deleteByUsuarioId(usuarioId);
+		usuarioRepository.deleteById(usuarioId);
+	}
+
 	public Usuario getUsuarioLogado() {
 		return usuarioRepository
 				.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName().toLowerCase())
 				.orElseThrow(() -> new EntityNotFoundException());
 	}
-
-
 
 }

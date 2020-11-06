@@ -27,5 +27,12 @@ public class UsuarioProcesso {
 
 	@ManyToOne
 	private Usuario usuario;
+	
+	public UsuarioProcesso(Processo processo, Usuario usuario) {
+		this.processo = processo;
+		this.usuario = usuario;
+	}
+	
+	
 
 }
