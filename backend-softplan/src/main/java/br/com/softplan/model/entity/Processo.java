@@ -22,7 +22,7 @@ public class Processo {
 	private Long id;
 
 	private String titulo;
-
-	private Boolean pendente;
+	
+	private String dsParecer;
 
 }

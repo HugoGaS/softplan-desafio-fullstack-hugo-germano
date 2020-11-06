@@ -6,7 +6,7 @@ public class EmailExistenteException extends RegraDeNegocioException {
 
 	private static final long serialVersionUID = 8636341798822189420L;
 
-	private final String email;
+	private String email;
 
 	public EmailExistenteException(String email) {
 		super(HttpStatus.BAD_REQUEST);
@@ -15,7 +15,9 @@ public class EmailExistenteException extends RegraDeNegocioException {
 
 	@Override
 	public MessageErrorBuilder getExceptionDTO() {
-		return MessageErrorBuilder.builder().mensagem("O email " + email + " já cadastrado no sistema!").build();
+		return MessageErrorBuilder.builder()
+				.mensagem("O email " + email + " já cadastrado no sistema!")
+				.build();
 	}
 
 }

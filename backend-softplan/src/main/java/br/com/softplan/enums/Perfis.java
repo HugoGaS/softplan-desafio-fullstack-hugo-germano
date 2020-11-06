@@ -2,7 +2,7 @@ package br.com.softplan.enums;
 
 import io.micrometer.core.instrument.util.StringUtils;
 
-public enum Cargos {
+public enum Perfis {
 	
 	ADMIN("ADMIN"),
 	USUARIO_TRIADOR("USUARIO_TRIADOR"),
@@ -10,7 +10,7 @@ public enum Cargos {
 	
 	private String descricao;
 	
-	Cargos(String descricao) {
+	Perfis(String descricao) {
 		this.descricao = descricao;
 	}
 	
@@ -18,16 +18,16 @@ public enum Cargos {
 		return descricao;
 	}
 	
-    public static Cargos getValueFromDs(String descricao) {
-    	Cargos cargo = null;
+    public static Perfis getValueFromDs(String descricao) {
+    	Perfis perfil = null;
     	if(!StringUtils.isBlank(descricao)) {
-            for (Cargos cargoEncontrado : Cargos.values()) {
-                if (cargoEncontrado.getDescricao() == descricao) {
-                	cargo =  cargoEncontrado;
+            for (Perfis perfilEncontrado : Perfis.values()) {
+                if (perfilEncontrado.getDescricao() == descricao) {
+                	perfil =  perfilEncontrado;
                 } 
             }
     	}
-    	return cargo;
+    	return perfil;
     }
 
 	

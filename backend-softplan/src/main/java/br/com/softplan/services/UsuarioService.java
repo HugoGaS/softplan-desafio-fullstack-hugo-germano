@@ -11,7 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.com.softplan.enums.Cargos;
+import br.com.softplan.enums.Perfis;
 import br.com.softplan.exception.EmailExistenteException;
 import br.com.softplan.model.dto.UsuarioDTO;
 import br.com.softplan.model.entity.Usuario;
@@ -40,11 +40,11 @@ public class UsuarioService {
 	public UsuarioDTO save(UsuarioDTO usuarioDto) {
 
 		Usuario usuario = new Usuario(usuarioDto);
-		usuario.setCargo(Cargos.getValueFromDs(usuarioDto.getCargo()));
+		usuario.setPerfil(Perfis.getValueFromDs(usuarioDto.getPerfil()));
 		usuario.setSenha(passwordEncoder.encode(DEFAULT_PASSWORD));
 
 		if (usuario.getId() == null && usuarioRepository.existsByEmail(usuario.getEmail())) {
-			throw new EmailExistenteException(usuario.getEmail());
+		//	throw new EmailExistenteException(usuario.getEmail());
 		}
 
 		Usuario savedUsuario = usuarioRepository.save(usuario);
@@ -58,13 +58,6 @@ public class UsuarioService {
 				.orElseThrow(() -> new EntityNotFoundException());
 	}
 
-	@Transactional
-	public void delete(Long id) {
-		usuarioRepository.findById(id).map(u -> {
-			// UsuarioProcessService.deleteFromUsuarioId(u.getId());
-			usuarioRepository.delete(u);
-			return u;
-		}).orElseThrow(() -> new EntityNotFoundException());
-	}
+
 
 }

@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import br.com.softplan.enums.Cargos;
+import br.com.softplan.enums.Perfis;
 import br.com.softplan.model.dto.UsuarioDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,12 +39,13 @@ public class Usuario implements UserDetails {
 	private String senha;
 
 	@Enumerated(EnumType.STRING)
-	private Cargos cargo;
+	private Perfis perfil;
 
 	public Usuario(UsuarioDTO usuarioDTO) {
 		this.id = usuarioDTO.getId();
 		this.nome = usuarioDTO.getNome();
 		this.email = usuarioDTO.getEmail();
+		this.perfil = Perfis.getValueFromDs(usuarioDTO.getPerfil());
 	}
 
 	@Override

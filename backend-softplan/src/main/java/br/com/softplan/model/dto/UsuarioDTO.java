@@ -1,7 +1,5 @@
 package br.com.softplan.model.dto;
 
-import org.springframework.data.domain.Page;
-
 import com.sun.istack.NotNull;
 
 import br.com.softplan.model.entity.Usuario;
@@ -24,20 +22,13 @@ public class UsuarioDTO {
 	@NotNull
 	private String email;
 
-	private String cargo;
-	
-	private String senha;
+	private String perfil;
 
 	public UsuarioDTO(Usuario usuario) {
 		this.id = usuario.getId();
 		this.nome = usuario.getNome();
 		this.email = usuario.getEmail();
-		this.cargo = usuario.getCargo().getDescricao();
-		this.senha = usuario.getSenha();
-	}
-
-	public static Page<UsuarioDTO> converter(Page<Usuario> usuarios) {
-		return usuarios.map(UsuarioDTO::new);
+		this.perfil = usuario.getPerfil() != null ? usuario.getPerfil().getDescricao() : null;
 	}
 
 }

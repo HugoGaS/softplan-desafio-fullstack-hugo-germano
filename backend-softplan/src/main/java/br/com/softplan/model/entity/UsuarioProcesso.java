@@ -16,13 +16,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Parecer {
+public class UsuarioProcesso {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	private String dsParecer;
 
 	@ManyToOne
 	private Processo processo;
